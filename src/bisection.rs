@@ -11,7 +11,7 @@ impl Bisection{
         Bisection {function, a, b, tolerance}
     }
 
-    pub fn resolve(&mut self) -> f64{
+    pub fn solve(&mut self) -> f64{
         while(self.a - self.b).abs() > self.tolerance {
             let c = (self.a + self.b)/2.0;
             if (self.function)(c) == 0.0 {

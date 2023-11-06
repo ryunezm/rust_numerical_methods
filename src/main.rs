@@ -1,4 +1,6 @@
 mod bisection;
+mod euler;
+
 fn main() {
 
     println!("NUMERICAL METHODS");
