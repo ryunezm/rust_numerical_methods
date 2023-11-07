@@ -1,4 +1,4 @@
-mod findRoot;
+mod find_root;
 
 fn main() {
     println!(" --- ROOT-FINDING ALGORITHMS ---");
