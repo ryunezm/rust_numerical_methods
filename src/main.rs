@@ -1,4 +1,4 @@
-mod find_root;
+mod find_root_bracketing;
 
 fn main() {
     println!(" --- ROOT-FINDING ALGORITHMS ---");
@@ -15,6 +15,4 @@ fn main() {
     println!("3. COMBINATION OF METHODS");
     println!("3.1. Brent's method");
     println!("3.2. Ridder's method");
-
-
 }
