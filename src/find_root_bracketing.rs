@@ -7,40 +7,19 @@ trait FindRoot {
 }
 
 // ------ STRUCTS ------
-pub struct Bisection {
-    function: fn(f64) -> f64,
-    a: f64,
-    b: f64,
-    tolerance: f64,
-}
+pub struct Bisection { function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64 }
 
-pub struct FalsePosition {
-    function: fn(f64) -> f64,
-    a: f64,
-    b: f64,
-    tolerance: f64,
-}
+pub struct FalsePosition { function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64 }
 
-pub struct ITP {
-    function: fn(f64) -> f64,
-    a: f64,
-    b: f64,
-    tolerance: f64,
-}
+pub struct ITP { function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64 }
 
 // ------ IMPLEMENTATIONS ------
 impl FindRoot for Bisection {
-    fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
-        Bisection {
-            function,
-            a,
-            b,
-            tolerance,
-        }
-    }
+    fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64)
+        -> Self { Bisection { function, a, b, tolerance, } }
 
     fn solve(&mut self) -> f64 {
-        let max_iter = f64::log2((self.a - self.b) / self.tolerance).ceil() as u32;
+        let max_iter = f64::log2((self.a - self.b) / self.tolerance).ceil() as usize;
         let mut iter = 0;
 
         while (self.b - self.a).abs() > self.tolerance && iter < max_iter {
@@ -61,17 +40,11 @@ impl FindRoot for Bisection {
 }
 
 impl FindRoot for FalsePosition {
-    fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
-        FalsePosition {
-            function,
-            a,
-            b,
-            tolerance,
-        }
-    }
+    fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64)
+        -> Self { FalsePosition { function, a, b, tolerance } }
 
     fn solve(&mut self) -> f64 {
-        let max_iter = (f64::log10((self.b - self.a) / self.tolerance) / f64::log(2.0, consts::E)).ceil() as u32;
+        let max_iter = (f64::log10((self.b - self.a) / self.tolerance) / f64::log(2.0, consts::E)).ceil() as usize;
         let mut iter = 0;
         let mut x0 = self.a;
         let mut x1 = self.b;
@@ -99,17 +72,11 @@ impl FindRoot for FalsePosition {
 }
 
 impl FindRoot for ITP {
-    fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
-        ITP {
-            function,
-            a,
-            b,
-            tolerance,
-        }
-    }
+    fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64)
+        -> Self { ITP { function, a, b, tolerance } }
 
     fn solve(&mut self) -> f64 {
-        let max_iter = f64::log2((self.a - self.b) / (2.0 * self.tolerance)).ceil() as u32;
+        let max_iter = f64::log2((self.a - self.b) / (2.0 * self.tolerance)).ceil() as usize;
 
         let mut iter = 0;
         let mut x0 = self.a;

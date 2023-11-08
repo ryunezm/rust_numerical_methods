@@ -1,4 +1,5 @@
 mod find_root_bracketing;
+mod find_root_iterative;
 
 fn main() {
     println!(" --- ROOT-FINDING ALGORITHMS ---");
