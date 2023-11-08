@@ -1,5 +1,3 @@
-use std::cmp::max;
-
 // ------ TRAIT ------
 trait FindRoot {
     fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self;
