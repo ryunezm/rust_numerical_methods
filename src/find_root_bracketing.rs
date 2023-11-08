@@ -1,3 +1,5 @@
+use std::cmp::max;
+
 // ------ TRAIT ------
 trait FindRoot {
     fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self;
@@ -91,7 +93,7 @@ impl FindRoot for ITP {
         let mut x0 = self.a;
         let mut x1 = self.b;
 
-        while (x0 - x1).abs() > self.tolerance {
+        while (x0 - x1).abs() > self.tolerance && iter < max_iter{
             let mut f0 = (self.function)(x0);
             let mut f1 = (self.function)(x1);
 
@@ -105,6 +107,7 @@ impl FindRoot for ITP {
             xt = xt.round();
             x0 = x1;
             x1 = xt;
+            iter +=1;
         }
         x1
     }
