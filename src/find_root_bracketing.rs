@@ -1,3 +1,5 @@
+use std::f64::consts;
+
 // ------ TRAIT ------
 trait FindRoot {
     fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self;
@@ -69,9 +71,30 @@ impl FindRoot for FalsePosition {
     }
 
     fn solve(&mut self) -> f64 {
-        let max_iter = (f64::log10((self.b - self.a) / self.tolerance) / f64::log10(2.0)).ceil() as u32;
+        let max_iter = (f64::log10((self.b - self.a) / self.tolerance) / f64::log(2.0, consts::E)).ceil() as u32;
         let mut iter = 0;
         let mut x0 = self.a;
+        let mut x1 = self.b;
+
+        while iter < max_iter {
+            let f0 = (self.function)(x0);
+            let f1 = (self.function)(x1);
+
+            let x2 = x1 - (f1 * (x1 - x0)) / (f1 - f0);
+
+            if (f1 * (x1 - x0)).abs() < self.tolerance {
+                return x2;
+            }
+
+            if (self.function)(x2) * f1 < 0.0 {
+                x0 = x2;
+            } else {
+                x1 = x2;
+            }
+            iter += 1
+        }
+
+        x1
     }
 }
 
@@ -86,26 +109,27 @@ impl FindRoot for ITP {
     }
 
     fn solve(&mut self) -> f64 {
-        let max_iter = 1000;
+        let max_iter = f64::log2((self.a - self.b) / (2.0 * self.tolerance)).ceil() as u32;
+
         let mut iter = 0;
         let mut x0 = self.a;
         let mut x1 = self.b;
 
-        while (x0 - x1).abs() > self.tolerance && iter < max_iter{
-            let mut f0 = (self.function)(x0);
+        while (x0 - x1).abs() > self.tolerance && iter < max_iter {
+            let f0 = (self.function)(x0);
             let mut f1 = (self.function)(x1);
 
-            let mut m = (f1 - f0) / (x1 - x0);
+            let m = (f1 - f0) / (x1 - x0);
             let mut x2 = x1 - f1 / m;
 
-            let mut y0 = (self.function)(x0);
+            let y0 = (self.function)(x0);
             let mut y2 = (self.function)(x2);
             let mut xt = x2 - (y2 - y0) / (2.0 * m);
 
             xt = xt.round();
             x0 = x1;
             x1 = xt;
-            iter +=1;
+            iter += 1;
         }
         x1
     }
