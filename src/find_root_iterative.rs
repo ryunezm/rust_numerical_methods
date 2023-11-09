@@ -26,8 +26,8 @@ impl FindRoot for Newton {
         let mut iter = 0;
 
         while iter < self.max_iter {
-            let mut fx = (self.function)(x);
-            let mut fx_derivative = (self.function_derivative)(x);
+            let fx = (self.function)(x);
+            let fx_derivative = (self.function_derivative)(x);
             if fx_derivative.abs() < 1e-10 { break; } // Division by 0 is avoided here.
 
             let x_next = x - fx / fx_derivative;
@@ -53,13 +53,13 @@ impl FindRoot for Secant {
         let mut iter = 0;
 
         while iter < self.max_iter {
-            let mut fx = (self.function)(x);
-            let mut fx_prev = (self.function)(x_prev);
+            let fx = (self.function)(x);
+            let fx_prev = (self.function)(x_prev);
 
             if (fx - fx_prev).abs() < self.tolerance { return x; }
 
-            let mut x_next = x - fx * (x - x_prev) / (fx - fx_prev);
-            let x_prev = x;
+            let x_next = x - fx * (x - x_prev) / (fx - fx_prev);
+            x_prev = x;
             x = x_next;
             iter += 1;
         }
@@ -79,9 +79,9 @@ impl FindRoot for Steffensen {
         let mut iter = 0;
 
         while iter < self.max_iter {
-            let mut fx = (self.function)(x);
-            let mut fxx = (self.function)(x+fx) - fx;
-            let mut x_next = x - fx*fx/fxx;
+            let fx = (self.function)(x);
+            let fxx = (self.function)(x+fx) - fx;
+            let x_next = x - fx*fx/fxx;
 
             if (x_next-x).abs() < self.tolerance { return x_next }
 

@@ -87,13 +87,13 @@ impl FindRoot for ITP {
 
         while (x0 - x1).abs() > self.tolerance && iter < max_iter {
             let f0 = (self.function)(x0);
-            let mut f1 = (self.function)(x1);
+            let f1 = (self.function)(x1);
 
             let m = (f1 - f0) / (x1 - x0);
-            let mut x2 = x1 - f1 / m;
+            let x2 = x1 - f1 / m;
 
             let y0 = (self.function)(x0);
-            let mut y2 = (self.function)(x2);
+            let y2 = (self.function)(x2);
             let mut xt = x2 - (y2 - y0) / (2.0 * m);
 
             xt = xt.round();
