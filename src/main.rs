@@ -1,9 +1,4 @@
-mod find_root_bracketing;
-mod find_root_combination;
-mod find_root_iterative;
-
-//use find_root_bracketing::{Bisection, FalsePosition, ITP};
-//use find_root_iterative::{Secant, Newton, Steffensen};
+mod find_roots;
 use std::io::{stdin, Error};
 use std::process::Command;
 
@@ -13,7 +8,7 @@ fn main() {
     }
     let mut input = String::new();
 
-    menu();
+    menu_principal();
     if let Err(e) = stdin().read_line(&mut input) {
         eprintln!("Error al leer la línea: {}", e);
         return;
@@ -48,9 +43,26 @@ fn main() {
     }
 }
 
-fn menu() {
+fn menu_principal() {
+    println!("::: :::--- NUMERICAL METHODS: EXAMPLES ---::: :::");
+    println!("::: :::---  ---::: :::");
+    println!("1. Solving systems of linear equations");
+    println!("2. Root finding algorithms");
+    println!("[0] EXIT");
+    println!("--- --- --- --- ---");
+    println!("--- --- --- --- ---");
+    println!("--- --- --- --- ---");
+    println!("Select an option: ");
+}
+
+fn menu_SLE(){
+    println!("::: :::--- SOLVING SYSTEMS OF LINEAR EQUATIONS ---::: :::");
+    println!("1. Jacobi iteration method");
+    println!("2. Gauss-Seidel method");
+    println!("3. Successive over-relaxation (SOR)")
+}
+fn menu_find_root(){
     println!("::: :::--- ROOT-FINDING ALGORITHMS ---::: :::");
-    println!("::: :::--- EXAMPLES ---::: :::");
     println!("::: ::: BRACKETING METHODS ::: :::");
     println!("1. Bisection");
     println!("2. False position");
@@ -65,14 +77,7 @@ fn menu() {
     println!("9. Brent's method");
     println!("10. Ridder's method");
     println!("--- --- --- --- ---");
-    println!("[0] EXIT");
-    println!("--- --- --- --- ---");
-    println!("--- --- --- --- ---");
-    println!("--- --- --- --- ---");
-    println!("Select an option: ");
 }
-
-
 
 fn clear_console() -> Result<(), Error> {
     if cfg!(target_os = "windows") {
