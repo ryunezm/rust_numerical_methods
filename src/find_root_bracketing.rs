@@ -7,11 +7,14 @@ trait FindRoot {
 }
 
 // ------ STRUCTS ------
-pub struct Bisection { function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64 }
+pub struct Bisection
+{ function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64 }
 
-pub struct FalsePosition { function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64 }
+pub struct FalsePosition
+{ function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64 }
 
-pub struct ITP { function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64 }
+pub struct ITP
+{ function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64 }
 
 // ------ IMPLEMENTATIONS ------
 impl FindRoot for Bisection {
