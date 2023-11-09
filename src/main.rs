@@ -3,12 +3,14 @@ use std::io::{stdin, Error};
 use std::process::Command;
 
 fn main() {
+
     if let Err(e) = clear_console() {
         eprintln!("Error clearing console: {}", e);
     }
+    menu_principal();
+
     let mut input = String::new();
 
-    menu_principal();
     if let Err(e) = stdin().read_line(&mut input) {
         eprintln!("Error al leer la línea: {}", e);
         return;
@@ -44,22 +46,20 @@ fn main() {
 }
 
 fn menu_principal() {
-    println!("::: :::--- NUMERICAL METHODS: EXAMPLES ---::: :::");
-    println!("::: :::---  ---::: :::");
+    println!("::: ::: ::: NUMERICAL METHODS: EXAMPLES ::: ::: :::");
     println!("1. Solving systems of linear equations");
     println!("2. Root finding algorithms");
     println!("[0] EXIT");
-    println!("--- --- --- --- ---");
-    println!("--- --- --- --- ---");
-    println!("--- --- --- --- ---");
+    println!("::: ::: ::: ::: ::: :::");
     println!("Select an option: ");
 }
 
 fn menu_sle(){
     println!("::: :::--- SOLVING SYSTEMS OF LINEAR EQUATIONS ---::: :::");
     println!("1. Jacobi iteration method");
-    println!("2. Gauss-Seidel method");
-    println!("3. Successive over-relaxation (SOR)")
+    println!("2. Gauss-Jordan method");
+    println!("3. Gauss-Seidel method");
+    println!("4. Successive over-relaxation method (SOR)")
 }
 fn menu_find_root(){
     println!("::: :::--- ROOT-FINDING ALGORITHMS ---::: :::");
