@@ -55,7 +55,7 @@ fn menu_principal() {
     println!("Select an option: ");
 }
 
-fn menu_SLE(){
+fn menu_sle(){
     println!("::: :::--- SOLVING SYSTEMS OF LINEAR EQUATIONS ---::: :::");
     println!("1. Jacobi iteration method");
     println!("2. Gauss-Seidel method");
