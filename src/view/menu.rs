@@ -16,22 +16,14 @@ pub fn menu() {
 
     loop {
         match opt {
-            "1" => {
-                menu_sle();
-                break;
-            }
-            "2" => {
-                menu_find_root();
-                break;
-            }
-
-            "3" => {
-                menu_quasi_newton_method();
-                break;
-            }
-
+            "1" => { menu_sle(); break; }
+            "2" => { menu_find_root(); break; }
+            "3" => { menu_quasi_newton_method(); break; }
+            "4" => { menu_sode(); break; }
+            "0" => { break; }
             _ => {
-                println!("_");
+                if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
+                menu();
                 break;
             }
         }
@@ -43,6 +35,7 @@ fn menu_principal() {
     println!("1. Solving systems of linear equations");
     println!("2. Root finding algorithms");
     println!("3. Quasi-Newton methods");
+    println!("4. Solution of Ordinary Differential Equations (SODE)");
     println!("[0] EXIT");
     println!("::: ::: ::: ::: ::: :::");
     println!("Select an option: ");
@@ -61,17 +54,17 @@ fn menu_sle() {
 fn menu_find_root() {
     if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
     println!("::: ::: ::: ROOT-FINDING ALGORITHMS ::: ::: :::");
-    println!("::: ::: BRACKETING METHODS ::: :::");
+    println!("::: BRACKETING METHODS :::");
     println!("1. Bisection");
     println!("2. False position");
     println!("3. ITP Method");
-    println!("::: ::: ITERATIVE METHODS ::: :::");
+    println!("::: ITERATIVE METHODS :::");
     println!("4. Newton's method ");
     println!("5. Secant method");
     println!("6. Steffensen's method");
     println!("7. Fixed point iteration method");
     println!("8. Inverse quadratic interpolation");
-    println!("::: ::: COMBINATION OF METHODS ::: :::");
+    println!("::: COMBINATION OF METHODS :::");
     println!("9. Brent's method");
     println!("10. Ridder's method");
     println!("[0] BACK");
@@ -86,6 +79,30 @@ fn menu_quasi_newton_method() {
     println!("4. Davidon–Fletcher–Powell (DFP) formula");
     println!("5. Symmetric rank-one");
     println!("[0] BACK");
+}
+
+fn menu_sode(){
+    println!("::: ::: ::: SOLUTION OF ODEs ::: ::: :::");
+    println!("::: EXPLICIT METHODS :::");
+    println!("1. Euler's method ");
+    println!("2. Runge-Kutta-2 method (Midpoint method)");
+    println!("3. Runge-Kutta-4 method (Classical fourth order method)");
+    println!("::: IMPLICIT METHODS :::");
+    println!("4. Implicit Euler's method");
+    println!("5. Backward Euler's method");
+    println!("6. Crank–Nicolson method");
+    println!("::: MULTISTEP METHODS :::");
+    println!("7. Trapezoidal method");
+    println!("8. Adams-Bashforth method");
+    println!("9. Adams-Moulton method");
+    println!("::: SHOOTING METHODS :::");
+    println!("10. Single shooting method");
+    println!("11. Double shooting method");
+    println!("::: COLLOCATION METHODS :::");
+    println!("12. Hermite collocation");
+    println!("13. B-spline collocation");
+    println!("[0] BACK");
+
 }
 
 fn clear_console() -> Result<(), Error> {
