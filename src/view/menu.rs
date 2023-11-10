@@ -1,7 +1,7 @@
 use std::io::{Error, stdin};
 use std::process::Command;
 
-pub fn menu(){
+pub fn menu() {
     if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
     menu_principal();
 
@@ -33,12 +33,12 @@ pub fn menu(){
             _ => {
                 println!("_");
                 break;
-                todo!()
             }
         }
     }
 }
-pub fn menu_principal(){
+
+fn menu_principal() {
     println!("::: ::: ::: ::: NUMERICAL METHODS: EXAMPLES ::: ::: ::: :::");
     println!("1. Solving systems of linear equations");
     println!("2. Root finding algorithms");
@@ -48,7 +48,7 @@ pub fn menu_principal(){
     println!("Select an option: ");
 }
 
-pub fn menu_sle(){
+fn menu_sle() {
     if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
     println!("::: :::--- SOLVING SYSTEMS OF LINEAR EQUATIONS ::: ::: :::");
     println!("1. Jacobi iteration method");
@@ -58,7 +58,7 @@ pub fn menu_sle(){
     println!("[0] BACK");
 }
 
-pub fn menu_find_root(){
+fn menu_find_root() {
     if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
     println!("::: ::: ::: ROOT-FINDING ALGORITHMS ::: ::: :::");
     println!("::: ::: BRACKETING METHODS ::: :::");
@@ -75,10 +75,9 @@ pub fn menu_find_root(){
     println!("9. Brent's method");
     println!("10. Ridder's method");
     println!("[0] BACK");
-
 }
 
-pub fn menu_quasi_newton_method(){
+fn menu_quasi_newton_method() {
     if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
     println!("::: ::: ::: QUASI-NEWTON METHODS ::: ::: :::");
     println!("1. Broyden's method");
@@ -89,7 +88,7 @@ pub fn menu_quasi_newton_method(){
     println!("[0] BACK");
 }
 
-pub fn clear_console() -> Result<(), Error> {
+fn clear_console() -> Result<(), Error> {
     if cfg!(target_os = "windows") {
         Command::new("cmd").arg("/c").arg("cls").status()?;
     } else {
