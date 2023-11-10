@@ -4,7 +4,18 @@ use std::process::Command;
 pub fn menu() {
     if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
     menu_principal();
+}
 
+fn menu_principal() {
+    if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
+    println!("::: ::: ::: ::: NUMERICAL METHODS: EXAMPLES ::: ::: ::: :::");
+    println!("1. Solving systems of linear equations");
+    println!("2. Root finding algorithms");
+    println!("3. Quasi-Newton methods");
+    println!("4. Solution of Ordinary Differential Equations (SODE)");
+    println!("[0] EXIT");
+    println!("::: ::: ::: ::: ::: :::");
+    println!("Select an option: ");
     let mut input = String::new();
 
     if let Err(e) = stdin().read_line(&mut input) {
@@ -21,24 +32,9 @@ pub fn menu() {
             "3" => { menu_quasi_newton_method(); break; }
             "4" => { menu_sode(); break; }
             "0" => { break; }
-            _ => {
-                if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
-                menu();
-                break;
-            }
+            _ => { menu_principal(); break; }
         }
     }
-}
-
-fn menu_principal() {
-    println!("::: ::: ::: ::: NUMERICAL METHODS: EXAMPLES ::: ::: ::: :::");
-    println!("1. Solving systems of linear equations");
-    println!("2. Root finding algorithms");
-    println!("3. Quasi-Newton methods");
-    println!("4. Solution of Ordinary Differential Equations (SODE)");
-    println!("[0] EXIT");
-    println!("::: ::: ::: ::: ::: :::");
-    println!("Select an option: ");
 }
 
 fn menu_sle() {
@@ -49,6 +45,27 @@ fn menu_sle() {
     println!("3. Gauss-Seidel method");
     println!("4. Successive over-relaxation method (SOR)");
     println!("[0] BACK");
+    println!("::: ::: ::: ::: ::: :::");
+    println!("Select an option: ");
+
+    let mut input = String::new();
+    if let Err(e) = stdin().read_line(&mut input) {
+        eprintln!("Error al leer la línea: {}", e);
+        return;
+    }
+
+    let opt = input.trim();
+
+    loop {
+        match opt {
+            "1" => { println!("Choose Jacobi"); break; }
+            "2" => { println!("Choose G-J"); break; }
+            "3" => { println!("Choose G-S"); break; }
+            "4" => { println!("Choose SOR"); break; }
+            "0" => { menu_principal(); break; }
+            _ => { menu_sle(); break; }
+        }
+    }
 }
 
 fn menu_find_root() {
@@ -68,6 +85,15 @@ fn menu_find_root() {
     println!("9. Brent's method");
     println!("10. Ridder's method");
     println!("[0] BACK");
+    println!("::: ::: ::: ::: ::: :::");
+    println!("Select an option: ");
+    let mut input = String::new();
+    if let Err(e) = stdin().read_line(&mut input) {
+        eprintln!("Error al leer la línea: {}", e);
+        return;
+    }
+
+    let opt = input.trim();
 }
 
 fn menu_quasi_newton_method() {
@@ -79,6 +105,15 @@ fn menu_quasi_newton_method() {
     println!("4. Davidon–Fletcher–Powell (DFP) formula");
     println!("5. Symmetric rank-one");
     println!("[0] BACK");
+    println!("::: ::: ::: ::: ::: :::");
+    println!("Select an option: ");
+    let mut input = String::new();
+    if let Err(e) = stdin().read_line(&mut input) {
+        eprintln!("Error al leer la línea: {}", e);
+        return;
+    }
+
+    let opt = input.trim();
 }
 
 fn menu_sode(){
@@ -102,6 +137,15 @@ fn menu_sode(){
     println!("12. Hermite collocation");
     println!("13. B-spline collocation");
     println!("[0] BACK");
+    println!("::: ::: ::: ::: ::: :::");
+    println!("Select an option: ");
+    let mut input = String::new();
+    if let Err(e) = stdin().read_line(&mut input) {
+        eprintln!("Error al leer la línea: {}", e);
+        return;
+    }
+
+    let opt = input.trim();
 
 }
 
