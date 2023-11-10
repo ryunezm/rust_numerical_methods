@@ -22,21 +22,14 @@ fn main() {
     loop {
         match opt {
             "1" => {
-                println!("1");
+                menu_sle();
                 break;
             }
             "2" => {
-                println!("2");
+                menu_find_root();
                 break;
             }
-            "3" => {
-                println!("3");
-                break;
-            }
-            "4" => {
-                println!("4");
-                break;
-            }
+
             _ => {
                 println!("_");
                 break;
