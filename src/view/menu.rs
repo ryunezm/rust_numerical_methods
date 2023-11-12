@@ -2,6 +2,7 @@ use std::io::{Error, stdin};
 use std::process::Command;
 use crate::find_roots::find_root_bracketing::{Bisection, FalsePosition, ITP, FindRoot as FRB};
 use crate::find_roots::find_root_iterative::{Newton, Secant, Steffensen, FixedPoint, InverseQuadraticInterpolation, FindRoot as FRI};
+use crate::find_roots::find_root_combination::{Brent, Ridder, FindRoot as FRC};
 
 pub fn menu() {
     if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
@@ -115,8 +116,10 @@ fn menu_find_root() {
                         FixedPoint::info(); break }
             "8" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
                         InverseQuadraticInterpolation::info(); break }
-            "9" => { todo!() }
-            "10" => { todo!() }
+            "9" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
+                        Brent::info(); break; }
+            "10" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
+                        Ridder::info(); break; }
             "0" => { menu_principal(); break; }
             &_ => { menu_find_root(); break; }
         }
