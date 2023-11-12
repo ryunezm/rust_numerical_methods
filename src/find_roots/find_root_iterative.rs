@@ -6,7 +6,7 @@ pub(crate) trait FindRoot {
 
 // ------ STRUCTS ------
 
-struct Newton {
+pub struct Newton {
     function: Box<dyn Fn(f64) -> f64>,
     function_derivative: fn(f64) -> f64,
     x0: f64,
@@ -14,7 +14,7 @@ struct Newton {
     max_iter: usize,
 }
 
-struct Secant {
+pub struct Secant {
     function: Box<dyn Fn(f64) -> f64>,
     x0: f64,
     x1: f64,
@@ -22,21 +22,21 @@ struct Secant {
     max_iter: usize,
 }
 
-struct Steffensen {
+pub struct Steffensen {
     function: Box<dyn Fn(f64) -> f64>,
     x0: f64,
     tolerance: f64,
     max_iter: usize,
 }
 
-struct FixedPoint {
+pub struct FixedPoint {
     function: Box<dyn Fn(f64) -> f64>,
     x0: f64,
     tolerance: f64,
     max_iter: usize,
 }
 
-struct InverseQuadraticInterpolation {
+pub struct InverseQuadraticInterpolation {
     function: Box<dyn Fn(f64) -> f64>,
     x0: f64,
     x1: f64,
@@ -67,7 +67,14 @@ impl Newton {
 
 impl FindRoot for Newton {
     fn info() {
-        todo!()
+        println!("Welcome to Newton Method");
+        println!("You  need to provide:");
+        println!("1. A function (f).");
+        println!("2. Derivative of the function (f')");
+        println!("3. A initial value (x0).");
+        println!("4. Tolerance (tol).");
+        println!("5. Maximum number of iterations (max_iter).");
+        println!("Please enter the data:")
     }
 
     fn solve(&mut self) -> (f64, usize) {

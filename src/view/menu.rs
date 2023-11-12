@@ -1,6 +1,7 @@
 use std::io::{Error, stdin};
 use std::process::Command;
-use crate::find_roots::find_root_bracketing::{Bisection, FalsePosition, ITP, FindRoot};
+use crate::find_roots::find_root_bracketing::{Bisection, FalsePosition, ITP, FindRoot as FRB};
+use crate::find_roots::find_root_iterative::{Newton, Secant, Steffensen, FixedPoint, InverseQuadraticInterpolation, FindRoot as FRI};
 
 pub fn menu() {
     if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
@@ -104,11 +105,16 @@ fn menu_find_root() {
                         FalsePosition::info(); break; }
             "3" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
                         ITP::info(); break; }
-            "4" => { todo!() }
-            "5" => { todo!() }
-            "6" => { todo!() }
-            "7" => { todo!() }
-            "8" => { todo!() }
+            "4" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
+                        Newton::info(); break }
+            "5" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
+                        Secant::info(); break }
+            "6" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
+                        Steffensen::info(); break }
+            "7" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
+                        FixedPoint::info(); break }
+            "8" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
+                        InverseQuadraticInterpolation::info(); break }
             "9" => { todo!() }
             "10" => { todo!() }
             "0" => { menu_principal(); break; }
