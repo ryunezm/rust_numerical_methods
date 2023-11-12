@@ -3,40 +3,41 @@ pub(crate) trait FindRoot {
     fn info();
     fn solve(&mut self) -> (f64, usize);
 }
+
 // ------ STRUCTS ------
 
-struct Newton<'a> {
-    function: &'a dyn Fn(f64) -> f64,
+struct Newton {
+    function: Box<dyn Fn(f64) -> f64>,
     function_derivative: fn(f64) -> f64,
     x0: f64,
     tolerance: f64,
     max_iter: usize,
 }
 
-struct Secant<'a> {
-    function: &'a dyn Fn(f64) -> f64,
+struct Secant {
+    function: Box<dyn Fn(f64) -> f64>,
     x0: f64,
     x1: f64,
     tolerance: f64,
     max_iter: usize,
 }
 
-struct Steffensen<'a> {
-    function: &'a dyn Fn(f64) -> f64,
+struct Steffensen {
+    function: Box<dyn Fn(f64) -> f64>,
     x0: f64,
     tolerance: f64,
     max_iter: usize,
 }
 
-struct FixedPoint<'a> {
-    function: &'a dyn Fn(f64) -> f64,
+struct FixedPoint {
+    function: Box<dyn Fn(f64) -> f64>,
     x0: f64,
     tolerance: f64,
     max_iter: usize,
 }
 
-struct InverseQuadraticInterpolation<'a> {
-    function: &'a dyn Fn(f64) -> f64,
+struct InverseQuadraticInterpolation {
+    function: Box<dyn Fn(f64) -> f64>,
     x0: f64,
     x1: f64,
     x2: f64,
@@ -46,9 +47,9 @@ struct InverseQuadraticInterpolation<'a> {
 
 // ------ IMPLEMENTATIONS ------
 
-impl<'a> Newton<'a> {
+impl Newton {
     fn new(
-        function: &'a dyn Fn(f64) -> f64,
+        function: Box<dyn Fn(f64) -> f64>,
         function_derivative: fn(f64) -> f64,
         x0: f64,
         tolerance: f64,
@@ -64,7 +65,7 @@ impl<'a> Newton<'a> {
     }
 }
 
-impl<'a> FindRoot for Newton<'a> {
+impl FindRoot for Newton {
     fn info() {
         todo!()
     }
@@ -93,8 +94,8 @@ impl<'a> FindRoot for Newton<'a> {
     }
 }
 
-impl<'a> Secant<'a> {
-    fn new(function: &'a dyn Fn(f64) -> f64, x0: f64, x1: f64, tolerance: f64, max_iter: usize) -> Self {
+impl Secant {
+    fn new(function: Box<dyn Fn(f64) -> f64>, x0: f64, x1: f64, tolerance: f64, max_iter: usize) -> Self {
         Secant {
             function,
             x0,
@@ -105,9 +106,15 @@ impl<'a> Secant<'a> {
     }
 }
 
-impl<'a> FindRoot for Secant<'a> {
+impl FindRoot for Secant {
     fn info() {
-        todo!()
+        println!("Welcome to Secant Method");
+        println!("You  need to provide:");
+        println!("1. A function (f).");
+        println!("2. Two initial values (x0, x1). They should be close to the desired zero.");
+        println!("3. Tolerance (tol).");
+        println!("4. Maximum number of iterations (max_iter).");
+        println!("Please enter the data:")
     }
 
     fn solve(&mut self) -> (f64, usize) {
@@ -133,8 +140,8 @@ impl<'a> FindRoot for Secant<'a> {
     }
 }
 
-impl<'a> Steffensen<'a> {
-    fn new(function: &'a dyn Fn(f64) -> f64, x0: f64, tolerance: f64, max_iter: usize) -> Self {
+impl Steffensen {
+    fn new(function: Box<dyn Fn(f64) -> f64>, x0: f64, tolerance: f64, max_iter: usize) -> Self {
         Steffensen {
             function,
             x0,
@@ -144,9 +151,15 @@ impl<'a> Steffensen<'a> {
     }
 }
 
-impl<'a> FindRoot for Steffensen<'a> {
+impl FindRoot for Steffensen {
     fn info() {
-        todo!()
+        println!("Welcome to Steffensen's Method");
+        println!("You  need to provide:");
+        println!("1. A function (f).");
+        println!("2. A initial value (x0).");
+        println!("3. Tolerance (tol).");
+        println!("4. Maximum number of iterations (max_iter).");
+        println!("Please enter the data:")
     }
 
     fn solve(&mut self) -> (f64, usize) {
@@ -170,8 +183,8 @@ impl<'a> FindRoot for Steffensen<'a> {
     }
 }
 
-impl<'a> FixedPoint<'a> {
-    fn new(function: &'a dyn Fn(f64) -> f64, x0: f64, tolerance: f64, max_iter: usize) -> Self {
+impl FixedPoint {
+    fn new(function: Box<dyn Fn(f64) -> f64>, x0: f64, tolerance: f64, max_iter: usize) -> Self {
         FixedPoint {
             function,
             x0,
@@ -181,9 +194,15 @@ impl<'a> FixedPoint<'a> {
     }
 }
 
-impl<'a> FindRoot for FixedPoint<'a> {
+impl FindRoot for FixedPoint {
     fn info() {
-        todo!()
+        println!("Welcome to Fixed Point Method");
+        println!("You  need to provide:");
+        println!("1. A function (f).");
+        println!("2. A initial value (x0).");
+        println!("3. Tolerance (tol).");
+        println!("4. Maximum number of iterations (max_iter).");
+        println!("Please enter the data:")
     }
 
     fn solve(&mut self) -> (f64, usize) {
@@ -205,9 +224,9 @@ impl<'a> FindRoot for FixedPoint<'a> {
     }
 }
 
-impl<'a> InverseQuadraticInterpolation<'a> {
+impl InverseQuadraticInterpolation {
     fn new(
-        function: &'a dyn Fn(f64) -> f64,
+        function: Box<dyn Fn(f64) -> f64>,
         x0: f64,
         x1: f64,
         x2: f64,
@@ -225,9 +244,15 @@ impl<'a> InverseQuadraticInterpolation<'a> {
     }
 }
 
-impl<'a> FindRoot for InverseQuadraticInterpolation<'a> {
+impl FindRoot for InverseQuadraticInterpolation {
     fn info() {
-        todo!()
+        println!("Welcome to Inverse Quadratic Interpolation Method");
+        println!("You  need to provide:");
+        println!("1. A function (f).");
+        println!("2. Three initial values (x0, x1, x2).");
+        println!("3. Tolerance (tol).");
+        println!("4. Maximum number of iterations (max_iter).");
+        println!("Please enter the data:")
     }
 
     fn solve(&mut self) -> (f64, usize) {

@@ -1,29 +1,27 @@
-use std::f64::consts;
-
 // ------ TRAIT ------
 pub(crate) trait FindRoot {
     fn info();
-    fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self;
+    fn new(function: Box<dyn Fn(f64) -> f64>, a: f64, b: f64, tolerance: f64) -> Self;
     fn solve(&mut self) -> (f64, usize);
 }
 
 // ------ STRUCTS ------
 pub struct Bisection {
-    function: fn(f64) -> f64,
+    function: Box<dyn Fn(f64) -> f64>,
     a: f64,
     b: f64,
     tolerance: f64,
 }
 
 pub struct FalsePosition {
-    function: fn(f64) -> f64,
+    function: Box<dyn Fn(f64) -> f64>,
     a: f64,
     b: f64,
     tolerance: f64,
 }
 
 pub struct ITP {
-    function: fn(f64) -> f64,
+    function: Box<dyn Fn(f64) -> f64>,
     a: f64,
     b: f64,
     tolerance: f64,
@@ -40,7 +38,7 @@ impl FindRoot for Bisection {
         println!("Please enter the data:")
     }
 
-    fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
+    fn new(function: Box<dyn Fn(f64) -> f64>, a: f64, b: f64, tolerance: f64) -> Self {
         Bisection {
             function,
             a,
@@ -80,7 +78,7 @@ impl FindRoot for FalsePosition {
         println!("Please enter the data:")
     }
 
-    fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
+    fn new(function: Box<dyn Fn(f64) -> f64>, a: f64, b: f64, tolerance: f64) -> Self {
         FalsePosition {
             function,
             a,
@@ -90,8 +88,7 @@ impl FindRoot for FalsePosition {
     }
 
     fn solve(&mut self) -> (f64, usize) {
-        let max_iter = (f64::log10((self.b - self.a) / self.tolerance) / f64::log(2.0, consts::E))
-            .ceil() as usize;
+        let max_iter = (f64::log10((self.b - self.a) / self.tolerance) / f64::log(2.0, std::f64::consts::E)).ceil() as usize;
         let mut iter = 0;
         let mut x0 = self.a;
         let mut x1 = self.b;
@@ -128,7 +125,7 @@ impl FindRoot for ITP {
         println!("Please enter the data:")
     }
 
-    fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
+    fn new(function: Box<dyn Fn(f64) -> f64>, a: f64, b: f64, tolerance: f64) -> Self {
         ITP {
             function,
             a,
