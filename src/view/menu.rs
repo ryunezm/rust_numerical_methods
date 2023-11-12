@@ -98,9 +98,12 @@ fn menu_find_root() {
 
     loop {
         match opt {
-            "1" => { Bisection::info(); break }
-            "2" => { todo!() }
-            "3" => { todo!() }
+            "1" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
+                        Bisection::info(); break; }
+            "2" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
+                        FalsePosition::info(); break; }
+            "3" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
+                        ITP::info(); break; }
             "4" => { todo!() }
             "5" => { todo!() }
             "6" => { todo!() }

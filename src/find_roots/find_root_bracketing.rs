@@ -32,10 +32,11 @@ pub struct ITP {
 // ------ IMPLEMENTATIONS ------
 impl FindRoot for Bisection {
     fn info() {
-        println!("Welcome to Bisection method");
+        println!("Welcome to Bisection Method");
         println!("You  need to provide:");
-        println!("1. A function (f)");
+        println!("1. A function (f).");
         println!("2. An interval (a, b) in which the function will be evaluated in search of the roots.");
+        println!("3. Tolerance (tol).");
         println!("Please enter the data:")
     }
 
@@ -71,7 +72,12 @@ impl FindRoot for Bisection {
 
 impl FindRoot for FalsePosition {
     fn info() {
-        todo!()
+        println!("Welcome to False Position Method");
+        println!("You  need to provide:");
+        println!("1. A function (f)");
+        println!("2. An interval (a, b) in which the function will be evaluated in search of the roots.");
+        println!("3. Tolerance (tol).");
+        println!("Please enter the data:")
     }
 
     fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
@@ -114,7 +120,12 @@ impl FindRoot for FalsePosition {
 
 impl FindRoot for ITP {
     fn info() {
-        todo!()
+        println!("Welcome to Interpolate Truncate and Project (ITP) Method");
+        println!("You  need to provide:");
+        println!("1. A function (f)");
+        println!("2. An interval (a, b) in which the function will be evaluated in search of the roots.");
+        println!("3. Tolerance (tol).");
+        println!("Please enter the data:")
     }
 
     fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
