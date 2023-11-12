@@ -7,30 +7,30 @@ trait FindRoot {
 }
 
 // ------ STRUCTS ------
-pub struct Bisection {
-    function: fn(f64) -> f64,
+struct Bisection<'a> {
+    function: &'a dyn Fn(f64) -> f64,
     a: f64,
     b: f64,
     tolerance: f64,
 }
 
-pub struct FalsePosition {
-    function: fn(f64) -> f64,
+struct FalsePosition<'a> {
+    function: &'a dyn Fn(f64) -> f64,
     a: f64,
     b: f64,
     tolerance: f64,
 }
 
-pub struct ITP {
-    function: fn(f64) -> f64,
+struct ITP<'a> {
+    function: &'a dyn Fn(f64) -> f64,
     a: f64,
     b: f64,
     tolerance: f64,
 }
 
 // ------ IMPLEMENTATIONS ------
-impl FindRoot for Bisection {
-    fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
+impl<'a> FindRoot for Bisection<'a> {
+    fn new(function: &'a dyn Fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
         Bisection {
             function,
             a,
@@ -60,8 +60,8 @@ impl FindRoot for Bisection {
     }
 }
 
-impl FindRoot for FalsePosition {
-    fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
+impl<'a> FindRoot for FalsePosition<'a> {
+    fn new(function: &'a dyn Fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
         FalsePosition {
             function,
             a,
@@ -99,8 +99,8 @@ impl FindRoot for FalsePosition {
     }
 }
 
-impl FindRoot for ITP {
-    fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
+impl<'a> FindRoot for ITP<'a> {
+    fn new(function: &'a dyn Fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
         ITP {
             function,
             a,
