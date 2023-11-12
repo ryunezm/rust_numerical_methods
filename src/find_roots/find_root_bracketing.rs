@@ -1,36 +1,45 @@
 use std::f64::consts;
 
 // ------ TRAIT ------
-trait FindRoot {
+pub(crate) trait FindRoot {
+    fn info();
     fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self;
-    fn solve(&mut self) -> f64;
+    fn solve(&mut self) -> (f64, usize);
 }
 
 // ------ STRUCTS ------
-struct Bisection<'a> {
-    function: &'a dyn Fn(f64) -> f64,
+pub struct Bisection {
+    function: fn(f64) -> f64,
     a: f64,
     b: f64,
     tolerance: f64,
 }
 
-struct FalsePosition<'a> {
-    function: &'a dyn Fn(f64) -> f64,
+pub struct FalsePosition {
+    function: fn(f64) -> f64,
     a: f64,
     b: f64,
     tolerance: f64,
 }
 
-struct ITP<'a> {
-    function: &'a dyn Fn(f64) -> f64,
+pub struct ITP {
+    function: fn(f64) -> f64,
     a: f64,
     b: f64,
     tolerance: f64,
 }
 
 // ------ IMPLEMENTATIONS ------
-impl<'a> FindRoot for Bisection<'a> {
-    fn new(function: &'a dyn Fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
+impl FindRoot for Bisection {
+    fn info() {
+        println!("Welcome to Bisection method");
+        println!("You  need to provide:");
+        println!("1. A function (f)");
+        println!("2. An interval (a, b) in which the function will be evaluated in search of the roots.");
+        println!("Please enter the data:")
+    }
+
+    fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
         Bisection {
             function,
             a,
@@ -39,14 +48,14 @@ impl<'a> FindRoot for Bisection<'a> {
         }
     }
 
-    fn solve(&mut self) -> f64 {
+    fn solve(&mut self) -> (f64, usize) {
         let max_iter = f64::log2((self.a - self.b) / self.tolerance).ceil() as usize;
         let mut iter = 0;
 
         while (self.b - self.a).abs() > self.tolerance && iter < max_iter {
             let c = (self.a + self.b) / 2.0;
             if (self.function)(c) == 0.0 {
-                return c;
+                return (c, iter);
             } else if (self.function)(self.a) * (self.function)(c) < 0.0 {
                 self.b = c;
             } else {
@@ -56,12 +65,16 @@ impl<'a> FindRoot for Bisection<'a> {
             iter += 1;
         }
 
-        (self.a + self.b) / 2.0
+        ((self.a + self.b) / 2.0, iter)
     }
 }
 
-impl<'a> FindRoot for FalsePosition<'a> {
-    fn new(function: &'a dyn Fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
+impl FindRoot for FalsePosition {
+    fn info() {
+        todo!()
+    }
+
+    fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
         FalsePosition {
             function,
             a,
@@ -70,7 +83,7 @@ impl<'a> FindRoot for FalsePosition<'a> {
         }
     }
 
-    fn solve(&mut self) -> f64 {
+    fn solve(&mut self) -> (f64, usize) {
         let max_iter = (f64::log10((self.b - self.a) / self.tolerance) / f64::log(2.0, consts::E))
             .ceil() as usize;
         let mut iter = 0;
@@ -84,7 +97,7 @@ impl<'a> FindRoot for FalsePosition<'a> {
             let x2 = x1 - (f1 * (x1 - x0)) / (f1 - f0);
 
             if (f1 * (x1 - x0)).abs() < self.tolerance {
-                return x2;
+                return (x2, iter);
             }
 
             if (self.function)(x2) * f1 < 0.0 {
@@ -95,12 +108,16 @@ impl<'a> FindRoot for FalsePosition<'a> {
             iter += 1
         }
 
-        x1
+        (x1, iter)
     }
 }
 
-impl<'a> FindRoot for ITP<'a> {
-    fn new(function: &'a dyn Fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
+impl FindRoot for ITP {
+    fn info() {
+        todo!()
+    }
+
+    fn new(function: fn(f64) -> f64, a: f64, b: f64, tolerance: f64) -> Self {
         ITP {
             function,
             a,
@@ -109,7 +126,7 @@ impl<'a> FindRoot for ITP<'a> {
         }
     }
 
-    fn solve(&mut self) -> f64 {
+    fn solve(&mut self) -> (f64, usize) {
         let max_iter = f64::log2((self.a - self.b) / (2.0 * self.tolerance)).ceil() as usize;
 
         let mut iter = 0;
@@ -132,6 +149,6 @@ impl<'a> FindRoot for ITP<'a> {
             x1 = xt;
             iter += 1;
         }
-        x1
+        (x1, iter)
     }
 }

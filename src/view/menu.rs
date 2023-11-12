@@ -1,5 +1,6 @@
 use std::io::{Error, stdin};
 use std::process::Command;
+use crate::find_roots::find_root_bracketing::{Bisection, FalsePosition, ITP, FindRoot};
 
 pub fn menu() {
     if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
@@ -97,7 +98,7 @@ fn menu_find_root() {
 
     loop {
         match opt {
-            "1" => { todo!() }
+            "1" => { Bisection::info(); break }
             "2" => { todo!() }
             "3" => { todo!() }
             "4" => { todo!() }

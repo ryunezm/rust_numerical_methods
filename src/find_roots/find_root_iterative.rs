@@ -1,6 +1,7 @@
 // ------ TRAIT ------
-trait FindRoot {
-    fn solve(&mut self) -> f64;
+pub(crate) trait FindRoot {
+    fn info();
+    fn solve(&mut self) -> (f64, usize);
 }
 // ------ STRUCTS ------
 
@@ -64,6 +65,10 @@ impl<'a> Newton<'a> {
 }
 
 impl<'a> FindRoot for Newton<'a> {
+    fn info() {
+        todo!()
+    }
+
     fn solve(&mut self) -> (f64, usize) {
         let mut x = self.x0;
         let mut iter = 0;
@@ -101,6 +106,10 @@ impl<'a> Secant<'a> {
 }
 
 impl<'a> FindRoot for Secant<'a> {
+    fn info() {
+        todo!()
+    }
+
     fn solve(&mut self) -> (f64, usize) {
         let mut x_prev = self.x0;
         let mut x = self.x1;
@@ -136,6 +145,10 @@ impl<'a> Steffensen<'a> {
 }
 
 impl<'a> FindRoot for Steffensen<'a> {
+    fn info() {
+        todo!()
+    }
+
     fn solve(&mut self) -> (f64, usize) {
         let mut x = self.x0;
         let mut iter = 0;
@@ -169,6 +182,10 @@ impl<'a> FixedPoint<'a> {
 }
 
 impl<'a> FindRoot for FixedPoint<'a> {
+    fn info() {
+        todo!()
+    }
+
     fn solve(&mut self) -> (f64, usize) {
         let mut iter = 0;
         let mut x0 = self.x0;
@@ -209,6 +226,10 @@ impl<'a> InverseQuadraticInterpolation<'a> {
 }
 
 impl<'a> FindRoot for InverseQuadraticInterpolation<'a> {
+    fn info() {
+        todo!()
+    }
+
     fn solve(&mut self) -> (f64, usize) {
         let mut iter = 0;
         let mut x0 = self.x0;
