@@ -4,38 +4,38 @@ trait FindRoot {
 }
 // ------ STRUCTS ------
 
-pub struct Newton {
-    function: fn(f64) -> f64,
+struct Newton<'a> {
+    function: &'a dyn Fn(f64) -> f64,
     function_derivative: fn(f64) -> f64,
     x0: f64,
     tolerance: f64,
     max_iter: usize,
 }
 
-pub struct Secant {
-    function: fn(f64) -> f64,
+struct Secant<'a> {
+    function: &'a dyn Fn(f64) -> f64,
     x0: f64,
     x1: f64,
     tolerance: f64,
     max_iter: usize,
 }
 
-pub struct Steffensen {
-    function: fn(f64) -> f64,
+struct Steffensen<'a> {
+    function: &'a dyn Fn(f64) -> f64,
     x0: f64,
     tolerance: f64,
     max_iter: usize,
 }
 
-pub struct FixedPoint {
-    function: fn(f64) -> f64,
+struct FixedPoint<'a> {
+    function: &'a dyn Fn(f64) -> f64,
     x0: f64,
     tolerance: f64,
     max_iter: usize,
 }
 
-pub struct InverseQuadraticInterpolation {
-    function: fn(f64) -> f64,
+struct InverseQuadraticInterpolation<'a> {
+    function: &'a dyn Fn(f64) -> f64,
     x0: f64,
     x1: f64,
     x2: f64,
@@ -45,9 +45,9 @@ pub struct InverseQuadraticInterpolation {
 
 // ------ IMPLEMENTATIONS ------
 
-impl Newton {
+impl<'a> Newton<'a> {
     fn new(
-        function: fn(f64) -> f64,
+        function: &'a dyn Fn(f64) -> f64,
         function_derivative: fn(f64) -> f64,
         x0: f64,
         tolerance: f64,
@@ -63,8 +63,8 @@ impl Newton {
     }
 }
 
-impl FindRoot for Newton {
-    fn solve(&mut self) -> f64 {
+impl<'a> FindRoot for Newton<'a> {
+    fn solve(&mut self) -> (f64, usize) {
         let mut x = self.x0;
         let mut iter = 0;
 
@@ -77,19 +77,19 @@ impl FindRoot for Newton {
 
             let x_next = x - fx / fx_derivative;
             if (x_next - x).abs() < self.tolerance {
-                return x_next;
+                return (x_next, iter);
             }
 
             x = x_next;
             iter += 1;
         }
 
-        x
+        (x, iter)
     }
 }
 
-impl Secant {
-    fn new(function: fn(f64) -> f64, x0: f64, x1: f64, tolerance: f64, max_iter: usize) -> Self {
+impl<'a> Secant<'a> {
+    fn new(function: &'a dyn Fn(f64) -> f64, x0: f64, x1: f64, tolerance: f64, max_iter: usize) -> Self {
         Secant {
             function,
             x0,
@@ -100,8 +100,8 @@ impl Secant {
     }
 }
 
-impl FindRoot for Secant {
-    fn solve(&mut self) -> f64 {
+impl<'a> FindRoot for Secant<'a> {
+    fn solve(&mut self) -> (f64, usize) {
         let mut x_prev = self.x0;
         let mut x = self.x1;
         let mut iter = 0;
@@ -111,7 +111,7 @@ impl FindRoot for Secant {
             let fx_prev = (self.function)(x_prev);
 
             if (fx - fx_prev).abs() < self.tolerance {
-                return x;
+                return (x, iter);
             }
 
             let x_next = x - fx * (x - x_prev) / (fx - fx_prev);
@@ -120,12 +120,12 @@ impl FindRoot for Secant {
             iter += 1;
         }
 
-        x
+        (x, iter)
     }
 }
 
-impl Steffensen {
-    fn new(function: fn(f64) -> f64, x0: f64, tolerance: f64, max_iter: usize) -> Self {
+impl<'a> Steffensen<'a> {
+    fn new(function: &'a dyn Fn(f64) -> f64, x0: f64, tolerance: f64, max_iter: usize) -> Self {
         Steffensen {
             function,
             x0,
@@ -135,8 +135,8 @@ impl Steffensen {
     }
 }
 
-impl FindRoot for Steffensen {
-    fn solve(&mut self) -> f64 {
+impl<'a> FindRoot for Steffensen<'a> {
+    fn solve(&mut self) -> (f64, usize) {
         let mut x = self.x0;
         let mut iter = 0;
 
@@ -146,19 +146,19 @@ impl FindRoot for Steffensen {
             let x_next = x - fx * fx / fxx;
 
             if (x_next - x).abs() < self.tolerance {
-                return x_next;
+                return (x_next, iter);
             }
 
             x = x_next;
 
             iter += 1;
         }
-        x
+        (x, iter)
     }
 }
 
-impl FixedPoint {
-    fn new(function: fn(f64) -> f64, x0: f64, tolerance: f64, max_iter: usize) -> Self {
+impl<'a> FixedPoint<'a> {
+    fn new(function: &'a dyn Fn(f64) -> f64, x0: f64, tolerance: f64, max_iter: usize) -> Self {
         FixedPoint {
             function,
             x0,
@@ -168,8 +168,8 @@ impl FixedPoint {
     }
 }
 
-impl FindRoot for FixedPoint {
-    fn solve(&mut self) -> f64 {
+impl<'a> FindRoot for FixedPoint<'a> {
+    fn solve(&mut self) -> (f64, usize) {
         let mut iter = 0;
         let mut x0 = self.x0;
 
@@ -177,20 +177,20 @@ impl FindRoot for FixedPoint {
             let x_next = (self.function)(x0);
 
             if (x_next - x0).abs() < self.tolerance {
-                return x_next;
+                return (x_next, iter);
             }
 
             x0 = x_next;
             iter += 1;
         }
 
-        x0
+        (x0, iter)
     }
 }
 
-impl InverseQuadraticInterpolation {
+impl<'a> InverseQuadraticInterpolation<'a> {
     fn new(
-        function: fn(f64) -> f64,
+        function: &'a dyn Fn(f64) -> f64,
         x0: f64,
         x1: f64,
         x2: f64,
@@ -208,8 +208,8 @@ impl InverseQuadraticInterpolation {
     }
 }
 
-impl FindRoot for InverseQuadraticInterpolation {
-    fn solve(&mut self) -> f64 {
+impl<'a> FindRoot for InverseQuadraticInterpolation<'a> {
+    fn solve(&mut self) -> (f64, usize) {
         let mut iter = 0;
         let mut x0 = self.x0;
         let mut x1 = self.x1;
@@ -227,7 +227,7 @@ impl FindRoot for InverseQuadraticInterpolation {
             let x_next = x0 * a + x1 * b + x2 * c;
 
             if (x_next - x1).abs() < self.tolerance {
-                return x_next;
+                return (x_next, iter);
             }
 
             x0 = x1;
@@ -236,6 +236,6 @@ impl FindRoot for InverseQuadraticInterpolation {
             iter += 1;
         }
 
-        x2
+        (x2, iter)
     }
 }
