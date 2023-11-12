@@ -94,6 +94,23 @@ fn menu_find_root() {
     }
 
     let opt = input.trim();
+
+    loop {
+        match opt {
+            "1" => {}
+            "2" => {}
+            "3" => {}
+            "4" => {}
+            "5" => {}
+            "6" => {}
+            "7" => {}
+            "8" => {}
+            "9" => {}
+            "10" => {}
+            "0" => { menu_principal(); break; }
+            &_ => { menu_find_root(); break; }
+        }
+    }
 }
 
 fn menu_quasi_newton_method() {
@@ -114,6 +131,17 @@ fn menu_quasi_newton_method() {
     }
 
     let opt = input.trim();
+    loop {
+        match opt {
+            "1" => {}
+            "2" => {}
+            "3" => {}
+            "4" => {}
+            "5" => {}
+            "0" => { menu_principal(); break; }
+            &_ => { menu_quasi_newton_method(); break; }
+        }
+    }
 }
 
 fn menu_sode(){
@@ -146,6 +174,26 @@ fn menu_sode(){
     }
 
     let opt = input.trim();
+
+    loop {
+        match opt {
+            "1" => {}
+            "2" => {}
+            "3" => {}
+            "4" => {}
+            "5" => {}
+            "6" => {}
+            "7" => {}
+            "8" => {}
+            "9" => {}
+            "10" => {}
+            "11" => {}
+            "12" => {}
+            "13" => {}
+            "0" => { menu_principal(); break; }
+            &_ => { menu_sode(); break; }
+        }
+    }
 
 }
 
