@@ -100,26 +100,16 @@ fn menu_find_root() {
 
     loop {
         match opt {
-            "1" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
-                        Bisection::info(); break; }
-            "2" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
-                        FalsePosition::info(); break; }
-            "3" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
-                        ITP::info(); break; }
-            "4" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
-                        Newton::info(); break }
-            "5" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
-                        Secant::info(); break }
-            "6" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
-                        Steffensen::info(); break }
-            "7" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
-                        FixedPoint::info(); break }
-            "8" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
-                        InverseQuadraticInterpolation::info(); break }
-            "9" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
-                        Brent::info(); break; }
-            "10" => { if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); };
-                        Ridder::info(); break; }
+            "1" => { clear_menu(); Bisection::info(); break; }
+            "2" => { clear_menu(); FalsePosition::info(); break; }
+            "3" => { clear_menu(); ITP::info(); break; }
+            "4" => { clear_menu(); Newton::info(); break }
+            "5" => { clear_menu(); Secant::info(); break }
+            "6" => { clear_menu(); Steffensen::info(); break }
+            "7" => { clear_menu(); FixedPoint::info(); break }
+            "8" => { clear_menu(); InverseQuadraticInterpolation::info(); break }
+            "9" => { clear_menu(); Brent::info(); break; }
+            "10" => { clear_menu(); Ridder::info(); break; }
             "0" => { menu_principal(); break; }
             &_ => { menu_find_root(); break; }
         }
@@ -210,6 +200,9 @@ fn menu_sode(){
 
 }
 
+fn clear_menu(){
+    if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
+}
 fn clear_console() -> Result<(), Error> {
     if cfg!(target_os = "windows") {
         Command::new("cmd").arg("/c").arg("cls").status()?;
