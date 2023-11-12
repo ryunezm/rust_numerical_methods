@@ -97,16 +97,16 @@ fn menu_find_root() {
 
     loop {
         match opt {
-            "1" => {}
-            "2" => {}
-            "3" => {}
-            "4" => {}
-            "5" => {}
-            "6" => {}
-            "7" => {}
-            "8" => {}
-            "9" => {}
-            "10" => {}
+            "1" => { todo!() }
+            "2" => { todo!() }
+            "3" => { todo!() }
+            "4" => { todo!() }
+            "5" => { todo!() }
+            "6" => { todo!() }
+            "7" => { todo!() }
+            "8" => { todo!() }
+            "9" => { todo!() }
+            "10" => { todo!() }
             "0" => { menu_principal(); break; }
             &_ => { menu_find_root(); break; }
         }
@@ -133,11 +133,11 @@ fn menu_quasi_newton_method() {
     let opt = input.trim();
     loop {
         match opt {
-            "1" => {}
-            "2" => {}
-            "3" => {}
-            "4" => {}
-            "5" => {}
+            "1" => { todo!() }
+            "2" => { todo!() }
+            "3" => { todo!() }
+            "4" => { todo!() }
+            "5" => { todo!() }
             "0" => { menu_principal(); break; }
             &_ => { menu_quasi_newton_method(); break; }
         }
@@ -177,19 +177,19 @@ fn menu_sode(){
 
     loop {
         match opt {
-            "1" => {}
-            "2" => {}
-            "3" => {}
-            "4" => {}
-            "5" => {}
-            "6" => {}
-            "7" => {}
-            "8" => {}
-            "9" => {}
-            "10" => {}
-            "11" => {}
-            "12" => {}
-            "13" => {}
+            "1" => { todo!() }
+            "2" => { todo!() }
+            "3" => { todo!() }
+            "4" => { todo!() }
+            "5" => { todo!() }
+            "6" => { todo!() }
+            "7" => { todo!() }
+            "8" => { todo!() }
+            "9" => { todo!() }
+            "10" => { todo!() }
+            "11" => { todo!() }
+            "12" => { todo!() }
+            "13" => { todo!() }
             "0" => { menu_principal(); break; }
             &_ => { menu_sode(); break; }
         }
