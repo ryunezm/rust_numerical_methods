@@ -1,7 +1,7 @@
 // ------ TRAIT ------
 pub(crate) trait FindRoot {
     fn info();
-    fn solve(&mut self) -> (f64, usize);
+    fn solve(&mut self) -> (f64, f64, usize);
 }
 
 // ------ STRUCTS ------
@@ -77,8 +77,9 @@ impl FindRoot for Newton {
         println!("Please enter the data:")
     }
 
-    fn solve(&mut self) -> (f64, usize) {
+    fn solve(&mut self) -> (f64, f64, usize) {
         let mut x = self.x0;
+        let mut x_prev = x;
         let mut iter = 0;
 
         while iter < self.max_iter {
@@ -89,15 +90,17 @@ impl FindRoot for Newton {
             } // Division by 0 is avoided here.
 
             let x_next = x - fx / fx_derivative;
-            if (x_next - x).abs() < self.tolerance {
-                return (x_next, iter);
+            let error_abs = (x_next - x).abs();
+            if error_abs < self.tolerance {
+                return (x_next, error_abs, iter);
             }
 
+            x_prev = x;
             x = x_next;
             iter += 1;
         }
 
-        (x, iter)
+        (x, (x - x_prev).abs(), iter)
     }
 }
 
@@ -124,7 +127,7 @@ impl FindRoot for Secant {
         println!("Please enter the data:")
     }
 
-    fn solve(&mut self) -> (f64, usize) {
+    fn solve(&mut self) -> (f64, f64, usize) {
         let mut x_prev = self.x0;
         let mut x = self.x1;
         let mut iter = 0;
@@ -133,8 +136,10 @@ impl FindRoot for Secant {
             let fx = (self.function)(x);
             let fx_prev = (self.function)(x_prev);
 
-            if (fx - fx_prev).abs() < self.tolerance {
-                return (x, iter);
+            let mut error_abs = (fx - fx_prev).abs();
+
+            if error_abs < self.tolerance {
+                return (x, error_abs, iter);
             }
 
             let x_next = x - fx * (x - x_prev) / (fx - fx_prev);
@@ -143,7 +148,7 @@ impl FindRoot for Secant {
             iter += 1;
         }
 
-        (x, iter)
+        (x, ((self.function)(x)-(self.function)(x_prev)).abs(), iter)
     }
 }
 
@@ -169,8 +174,9 @@ impl FindRoot for Steffensen {
         println!("Please enter the data:")
     }
 
-    fn solve(&mut self) -> (f64, usize) {
+    fn solve(&mut self) -> (f64, f64, usize) {
         let mut x = self.x0;
+        let mut x_prev = x;
         let mut iter = 0;
 
         while iter < self.max_iter {
@@ -178,15 +184,16 @@ impl FindRoot for Steffensen {
             let fxx = (self.function)(x + fx) - fx;
             let x_next = x - fx * fx / fxx;
 
-            if (x_next - x).abs() < self.tolerance {
-                return (x_next, iter);
+            let mut error_abs = (x_next - x).abs();
+            if error_abs < self.tolerance {
+                return (x_next, error_abs, iter);
             }
 
+            x_prev = x;
             x = x_next;
-
             iter += 1;
         }
-        (x, iter)
+        (x, (x-x_prev).abs(), iter)
     }
 }
 
@@ -212,22 +219,25 @@ impl FindRoot for FixedPoint {
         println!("Please enter the data:")
     }
 
-    fn solve(&mut self) -> (f64, usize) {
+    fn solve(&mut self) -> (f64, f64, usize) {
         let mut iter = 0;
-        let mut x0 = self.x0;
+        let mut x = self.x0;
+        let mut x_prev = x;
 
         while iter < self.max_iter {
-            let x_next = (self.function)(x0);
+            let x_next = (self.function)(x);
 
-            if (x_next - x0).abs() < self.tolerance {
-                return (x_next, iter);
+            let mut error_abs = (x_next - x).abs();
+            if error_abs < self.tolerance {
+                return (x_next, error_abs, iter);
             }
 
-            x0 = x_next;
+            x_prev = x;
+            x = x_next;
             iter += 1;
         }
 
-        (x0, iter)
+        (x, (x-x_prev).abs(), iter)
     }
 }
 
@@ -262,7 +272,7 @@ impl FindRoot for InverseQuadraticInterpolation {
         println!("Please enter the data:")
     }
 
-    fn solve(&mut self) -> (f64, usize) {
+    fn solve(&mut self) -> (f64, f64, usize) {
         let mut iter = 0;
         let mut x0 = self.x0;
         let mut x1 = self.x1;
@@ -277,10 +287,10 @@ impl FindRoot for InverseQuadraticInterpolation {
             let b = f1 / ((f0 - f1) * (x2 - x1) - (f2 - f1) * (x0 - x1));
             let c = f2 / ((f0 - f2) * (x1 - x2) - (f1 - f2) * (x0 - x2));
 
-            let x_next = x0 * a + x1 * b + x2 * c;
-
-            if (x_next - x1).abs() < self.tolerance {
-                return (x_next, iter);
+            let mut x_next = x0 * a + x1 * b + x2 * c;
+            let mut error_abs = (x_next - x1).abs();
+            if error_abs < self.tolerance {
+                return (x_next, error_abs, iter);
             }
 
             x0 = x1;
@@ -289,6 +299,6 @@ impl FindRoot for InverseQuadraticInterpolation {
             iter += 1;
         }
 
-        (x2, iter)
+        (x2, (x2-x1).abs(), iter)
     }
 }
