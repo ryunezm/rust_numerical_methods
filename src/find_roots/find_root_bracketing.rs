@@ -2,7 +2,7 @@
 pub(crate) trait FindRoot {
     fn info();
     fn new(function: Box<dyn Fn(f64) -> f64>, a: f64, b: f64, tolerance: f64) -> Self;
-    fn solve(&mut self) -> (f64, usize);
+    fn solve(&mut self) -> (f64, f64, usize);
 }
 
 // ------ STRUCTS ------
