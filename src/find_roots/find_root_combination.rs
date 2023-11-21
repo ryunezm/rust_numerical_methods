@@ -134,7 +134,7 @@ impl FindRoot for Ridder {
         let mut b = self.b;
 
         for iter in 0..self.max_iter {
-            let fa = (self.function)(a);
+            //let fa = (self.function)(a);
             let fb = (self.function)(b);
             let c = 0.5 * (a + b);
             let fc = (self.function)(c);
