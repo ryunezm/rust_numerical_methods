@@ -39,12 +39,7 @@ impl FindRoot for Bisection {
     }
 
     fn new(function: Box<dyn Fn(f64) -> f64>, a: f64, b: f64, tolerance: f64) -> Self {
-        Bisection {
-            function,
-            a,
-            b,
-            tolerance,
-        }
+        Bisection { function, a, b, tolerance }
     }
 
     fn solve(&mut self) -> Option<(f64, f64, usize)> {
@@ -85,12 +80,7 @@ impl FindRoot for FalsePosition {
     }
 
     fn new(function: Box<dyn Fn(f64) -> f64>, a: f64, b: f64, tolerance: f64) -> Self {
-        FalsePosition {
-            function,
-            a,
-            b,
-            tolerance,
-        }
+        FalsePosition { function, a, b, tolerance }
     }
 
     fn solve(&mut self) -> Option<(f64, f64, usize)> {
@@ -137,12 +127,7 @@ impl FindRoot for ITP {
     }
 
     fn new(function: Box<dyn Fn(f64) -> f64>, a: f64, b: f64, tolerance: f64) -> Self {
-        ITP {
-            function,
-            a,
-            b,
-            tolerance,
-        }
+        ITP { function, a, b, tolerance }
     }
 
     fn solve(&mut self) -> Option<(f64, f64, usize)> {
