@@ -3,6 +3,7 @@ use std::process::Command;
 use crate::find_roots::find_root_bracketing::{Bisection, FalsePosition, ITP, FindRoot as FRB};
 use crate::find_roots::find_root_iterative::{Newton, Secant, Steffensen, FixedPoint, InverseQuadraticInterpolation, FindRoot as FRI};
 use crate::find_roots::find_root_combination::{Brent, Ridder, FindRoot as FRC};
+use crate::sodes::sode_explicit_methods::{Euler, RK2, RK4, Functions };
 
 pub fn menu() {
     if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
@@ -180,9 +181,9 @@ fn menu_sode(){
 
     loop {
         match opt {
-            "1" => { todo!() }
-            "2" => { todo!() }
-            "3" => { todo!() }
+            "1" => { clear_menu(); Euler::info(); break; }
+            "2" => { clear_menu(); RK2::info(); break; }
+            "3" => { clear_menu(); RK4::info(); break; }
             "4" => { todo!() }
             "5" => { todo!() }
             "6" => { todo!() }
