@@ -1,9 +1,9 @@
 use std::io::{Error, stdin};
-use std::process::Command;
 use crate::find_roots::find_root_bracketing::{Bisection, FalsePosition, ITP, FindRoot as FRB};
 use crate::find_roots::find_root_iterative::{Newton, Secant, Steffensen, FixedPoint, InverseQuadraticInterpolation, FindRoot as FRI};
 use crate::find_roots::find_root_combination::{Brent, Ridder, FindRoot as FRC};
 use crate::sodes::sode_explicit_methods::{Euler, RK2, RK4, Functions };
+use crate::view::_clear_menu::{clear_menu, clear_console};
 
 pub fn menu() {
     if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
@@ -199,18 +199,4 @@ fn menu_sode(){
         }
     }
 
-}
-
-fn clear_menu(){
-    if let Err(e) = clear_console() { eprintln!("Error clearing console: {}", e); }
-}
-fn clear_console() -> Result<(), Error> {
-    if cfg!(target_os = "windows") {
-        Command::new("cmd").arg("/c").arg("cls").status()?;
-    } else {
-        Command::new("clear").status().or_else(|_| {
-            Command::new("tput").arg("clear").status()
-        })?;
-    }
-    Ok(())
 }
