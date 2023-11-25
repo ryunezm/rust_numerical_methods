@@ -33,7 +33,13 @@ pub struct CrankNicolson {
 
 impl Functions for ImplicitEuler {
     fn info() {
-        todo!()
+        println!("Welcome to Implicit Euler's Method");
+        println!("You  need to provide:");
+        println!("1. A function (f(x,y)).");
+        println!("2. Initial value of the dependent variable (y0).");
+        println!("3. Step size (h).");
+        println!("4. Number of steps or iterations (n).");
+        println!("Please enter the data:")
     }
 
     fn new(function: Box<dyn Fn(f64, f64) -> f64>, y0: f64, h: f64, n: f64) -> Self {
@@ -41,13 +47,23 @@ impl Functions for ImplicitEuler {
     }
 
     fn solve(&mut self) -> Option<(f64)> {
-        todo!()
+        for i in 0..self.n {
+            let delta_y = self.h * self.function(self.y0, i + 1.0);
+            self.y0 += delta_y / (1.0 - self.h);
+        }
+        Some(self.y0)
     }
 }
 
 impl Functions for BackwardEuler {
     fn info() {
-        todo!()
+        println!("Welcome to Backward Euler's Method");
+        println!("You  need to provide:");
+        println!("1. A function (f(x,y)).");
+        println!("2. Initial value of the dependent variable (y0).");
+        println!("3. Step size (h).");
+        println!("4. Number of steps or iterations (n).");
+        println!("Please enter the data:")
     }
 
     fn new(function: Box<dyn Fn(f64, f64) -> f64>, y0: f64, h: f64, n: f64) -> Self {
@@ -55,13 +71,23 @@ impl Functions for BackwardEuler {
     }
 
     fn solve(&mut self) -> Option<(f64)> {
-        todo!()
+        for i in 0..self.n {
+            let delta_y = self.h * self.function(self.y0 + self.h, i + 1.0);
+            self.y0 += delta_y;
+        }
+        Some(self.y0)
     }
 }
 
 impl Functions for CrankNicolson {
     fn info() {
-        todo!()
+        println!("Welcome to Crank-Nicolson Method");
+        println!("You  need to provide:");
+        println!("1. A function (f(x,y)).");
+        println!("2. Initial value of the dependent variable (y0).");
+        println!("3. Step size (h).");
+        println!("4. Number of steps or iterations (n).");
+        println!("Please enter the data:")
     }
 
     fn new(function: Box<dyn Fn(f64, f64) -> f64>, y0: f64, h: f64, n: f64) -> Self {
@@ -69,6 +95,11 @@ impl Functions for CrankNicolson {
     }
 
     fn solve(&mut self) -> Option<(f64)> {
-        todo!()
+        for i in 0..self.n {
+            let delta_y1 = self.h * self.function(self.y0, i);
+            let delta_y2 = self.h * self.function(self.y0 + delta_y1, i + 1.0);
+            self.y0 += (delta_y1 + delta_y2) / 2.0;
+        }
+        Some(self.y0)
     }
 }
