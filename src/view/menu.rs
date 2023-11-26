@@ -165,9 +165,6 @@ fn menu_sode(){
     println!("::: SHOOTING METHODS :::");
     println!("10. Single shooting method");
     println!("11. Double shooting method");
-    println!("::: COLLOCATION METHODS :::");
-    println!("12. Hermite collocation");
-    println!("13. B-spline collocation");
     println!("[0] BACK");
     println!("::: ::: ::: ::: ::: :::");
     println!("Select an option: ");
