@@ -1,4 +1,4 @@
-use std::io::{Error, stdin};
+use std::io::stdin;
 use crate::find_roots::find_root_bracketing::{Bisection, FalsePosition, ITP, FindRoot as FRB};
 use crate::find_roots::find_root_iterative::{Newton, Secant, Steffensen, FixedPoint, InverseQuadraticInterpolation, FindRoot as FRI};
 use crate::find_roots::find_root_combination::{Brent, Ridder, FindRoot as FRC};
