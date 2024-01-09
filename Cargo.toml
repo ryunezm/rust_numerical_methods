@@ -6,6 +6,24 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-log = "0.4.20"
+log = "*"
 crossterm = "*"
 evalexpr = "*"
+
+cairo-sys-rs = "*"
+gdk-pixbuf-sys = "*"
+gdk4-sys = "*"
+gio-sys = "*"
+glib = "*"
+glib-sys = "*"
+gobject-sys = "*"
+graphene-sys = "*"
+gsk4-sys = "*"
+gtk = { version = "0.7.3", package = "gtk4", features = ["v4_12"] }
+gtk4-sys = "*"
+pango-sys = "*"
+
+
+
+
+

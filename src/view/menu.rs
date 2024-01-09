@@ -2,7 +2,8 @@ use std::io::stdin;
 use crate::find_roots::find_root_bracketing::{Bisection, FalsePosition, ITP, FindRoot as FRB};
 use crate::find_roots::find_root_iterative::{Newton, Secant, Steffensen, FixedPoint, InverseQuadraticInterpolation, FindRoot as FRI};
 use crate::find_roots::find_root_combination::{Brent, Ridder, FindRoot as FRC};
-use crate::sodes::sode_explicit_methods::{Euler, RK2, RK4, Functions };
+use crate::sodes::sode_explicit_methods::{Euler, RK2, RK4, Functions as sodeExpFunctions };
+use crate::sodes::sode_implicit_methods::{ImplicitEuler, BackwardEuler, CrankNicolson, Functions as soedImpFunctions };
 use crate::view::_clear_menu::{clear_menu, clear_console};
 
 pub fn menu() {
@@ -181,9 +182,9 @@ fn menu_sode(){
             "1" => { clear_menu(); Euler::info(); break; }
             "2" => { clear_menu(); RK2::info(); break; }
             "3" => { clear_menu(); RK4::info(); break; }
-            "4" => { todo!() }
-            "5" => { todo!() }
-            "6" => { todo!() }
+            "4" => { clear_menu(); ImplicitEuler::info(); break; }
+            "5" => { clear_menu(); BackwardEuler::info(); break; }
+            "6" => { clear_menu(); CrankNicolson::info(); break; }
             "7" => { todo!() }
             "8" => { todo!() }
             "9" => { todo!() }
