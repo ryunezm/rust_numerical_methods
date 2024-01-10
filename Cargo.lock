@@ -508,21 +508,10 @@ dependencies = [
 name = "numerical_methods"
 version = "0.1.0"
 dependencies = [
- "cairo-sys-rs",
  "crossterm",
  "evalexpr",
- "gdk-pixbuf-sys",
- "gdk4-sys",
- "gio-sys",
- "glib",
- "glib-sys",
- "gobject-sys",
- "graphene-sys",
- "gsk4-sys",
  "gtk4",
- "gtk4-sys",
  "log",
- "pango-sys",
 ]
 
 [[package]]

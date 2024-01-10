@@ -140,7 +140,7 @@ impl FindRoot for Secant {
             let fx = (self.function)(x);
             let fx_prev = (self.function)(x_prev);
 
-            let mut error_abs = (fx - fx_prev).abs();
+            let error_abs = (fx - fx_prev).abs();
 
             if error_abs < self.tolerance {
                 return Some((x, error_abs, iter));
@@ -189,7 +189,7 @@ impl FindRoot for Steffensen {
             let fxx = (self.function)(x + fx) - fx;
             let x_next = x - fx * fx / fxx;
 
-            let mut error_abs = (x_next - x).abs();
+            let error_abs = (x_next - x).abs();
             if error_abs < self.tolerance {
                 return Some((x_next, error_abs, iter));
             }
@@ -234,7 +234,7 @@ impl FindRoot for FixedPoint {
         while iter < self.max_iter {
             let x_next = (self.function)(x);
 
-            let mut error_abs = (x_next - x).abs();
+            let error_abs = (x_next - x).abs();
             if error_abs < self.tolerance {
                 return Some((x_next, error_abs, iter));
             }
@@ -296,8 +296,8 @@ impl FindRoot for InverseQuadraticInterpolation {
             let b = f1 / ((f0 - f1) * (x2 - x1) - (f2 - f1) * (x0 - x1));
             let c = f2 / ((f0 - f2) * (x1 - x2) - (f1 - f2) * (x0 - x2));
 
-            let mut x_next = x0 * a + x1 * b + x2 * c;
-            let mut error_abs = (x_next - x1).abs();
+            let x_next = x0 * a + x1 * b + x2 * c;
+            let error_abs = (x_next - x1).abs();
             if error_abs < self.tolerance {
                 return Some((x_next, error_abs, iter));
             }

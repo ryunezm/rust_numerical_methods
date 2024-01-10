@@ -46,7 +46,7 @@ impl FindRoot for Bisection {
         let max_iter = f64::log2((self.a - self.b) / self.tolerance).ceil() as usize;
         let mut iter = 0;
 
-        let mut error_abs = (self.b - self.a).abs();
+        let error_abs = (self.b - self.a).abs();
 
         while error_abs > self.tolerance && iter < max_iter {
             let c = (self.a + self.b) / 2.0;
@@ -88,7 +88,7 @@ impl FindRoot for FalsePosition {
         let mut iter = 0;
         let mut x0 = self.a;
         let mut x1 = self.b;
-        let mut error_abs = ((self.function)(x1) *(x1-x0)).abs();
+        let error_abs = ((self.function)(x1) *(x1-x0)).abs();
 
         while iter < max_iter {
             let f0 = (self.function)(x0);
@@ -136,7 +136,7 @@ impl FindRoot for ITP {
         let mut iter = 0;
         let mut x0 = self.a;
         let mut x1 = self.b;
-        let mut error_abs = (x0 - x1).abs();
+        let error_abs = (x0 - x1).abs();
 
         while error_abs > self.tolerance && iter < max_iter {
             let f0 = (self.function)(x0);
