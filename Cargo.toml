@@ -9,7 +9,7 @@ edition = "2021"
 log = "*"
 crossterm = "*"
 evalexpr = "*"
-gtk = { version = "0.7.3", package = "gtk4" }
+gtk = { version = "*", package = "gtk4" }
 
 
 
